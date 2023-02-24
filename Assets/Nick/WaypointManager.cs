@@ -21,7 +21,7 @@ public class WaypointManager : MonoBehaviour
         for (int i = 0; i < _trackedWaypoints.Length; i++)
         {
             Gizmos.color = _rainbow[i % _rainbow.Length];
-            Gizmos.DrawSphere(_trackedWaypoints[i].position, 0.25f);
+            Gizmos.DrawSphere(_trackedWaypoints[i].position, 0.5f);
             Gizmos.color = Color.white;
 
             if (i !=  _trackedWaypoints.Length - 1)

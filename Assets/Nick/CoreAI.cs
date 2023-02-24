@@ -113,7 +113,7 @@ public class CoreAI : MonoBehaviour
         switch (_AIState)
         {
             case AIState.Passive:
-                _enemyColor.material.color = Color.yellow;
+                _enemyColor.material.color = Color.blue;
                 if (_randomWander == true)
                 {
                     Wander();
@@ -286,8 +286,6 @@ public class CoreAI : MonoBehaviour
     }
     IEnumerator RandomWaitTimer()
     {
-
-
         if (_alwaysMoving == false && _randomWaitTime == true)
         {
             wait_time = Random.Range(1, 5);
