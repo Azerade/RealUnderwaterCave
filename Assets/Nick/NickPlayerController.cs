@@ -8,7 +8,7 @@ public class NickPlayerController : MonoBehaviour
     private Rigidbody rb;
     public GameObject camHolder;
     private Vector2 move, look;
-    public float speed, sens, maxForce, jumpForce;
+    public float speed, sens, maxForce, jumpForce, crouchSpeed, fallSpeed;
     private float curSpeed, curJumpForce;
     private float lookRotation;
     private bool grounded, jumpHeld, crouchHeldInAir;
@@ -44,11 +44,11 @@ public class NickPlayerController : MonoBehaviour
         // Crouch();
         if (grounded && context.performed)
         {
-            curSpeed = speed * 0.5f;
+            curSpeed = crouchSpeed;
         }
         else if (!grounded && context.performed)
         {
-            curJumpForce = -jumpForce;
+            curJumpForce = -fallSpeed;
             crouchHeldInAir = true;
         }
         else if (context.canceled)
@@ -88,7 +88,10 @@ public class NickPlayerController : MonoBehaviour
     {
         Vector3 currentVelocity = rb.velocity;
         Vector3 targetVelocity = new Vector3(move.x, 0, move.y);
+        targetVelocity = targetVelocity.normalized;
         targetVelocity *= curSpeed;
+
+        // rb.MovePosition(transform.position + Time.deltaTime * targetVelocity * curSpeed);
 
         targetVelocity = transform.TransformDirection(targetVelocity);
 
@@ -105,7 +108,7 @@ public class NickPlayerController : MonoBehaviour
         transform.Rotate(Vector3.up * look.x * sens);
 
         lookRotation += -(look.y) * sens;
-        lookRotation = Mathf.Clamp(lookRotation, -90, 45);
+        lookRotation = Mathf.Clamp(lookRotation, -90, 70);
         camHolder.transform.eulerAngles = new Vector3(lookRotation, camHolder.transform.eulerAngles.y, camHolder.transform.eulerAngles.z);
 
     }
